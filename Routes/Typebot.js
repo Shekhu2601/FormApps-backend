@@ -1,10 +1,12 @@
 
+const ensureAuthenticated = require("../Middilewere/Auth");
 const Typebot=require("../Models/Typebot")
 
 const router = require('express').Router();
-router.post('/typebot', async (req, res)=>{
-    const {Name} =req.body;
-    const Tname = new Typebot({Name}) 
+router.post('/typebot', ensureAuthenticated, async (req, res)=>{
+    const {Name ,creator} =req.body;
+    const user =req.user;
+    const Tname = new Typebot({Name ,creator:user}) 
     await Tname.save()
     
     res.status(201).json({message:"Typebot craete succesfully ",

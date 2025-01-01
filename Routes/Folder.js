@@ -1,10 +1,12 @@
 
+const ensureAuthenticated = require("../Middilewere/Auth");
 const Folders=require("../Models/Folder")
-
+const {UserModel} =require("../Models/Users")
 const router = require('express').Router();
-router.post('/folder', async (req, res)=>{
-    const {FolderName} =req.body;
-    const Fname = new Folders ({FolderName}) 
+router.post('/folder', ensureAuthenticated, async (req, res)=>{
+    const {FolderName , creator} =req.body;
+    const user =req.user;
+    const Fname = new Folders ({FolderName,creator:user}) 
     await Fname.save()
     
     res.status(201).json({message:"Folder craete succesfully ",
