@@ -8,7 +8,7 @@ const ensureAuthenticated = (req, res, next) => {
     }
     try {
         const decoded = jwt.verify(auth, "shekhu");
-        req.user = decoded;
+        req.user =decoded.id;
         next();
     } catch (err) {
         return res.status(403)

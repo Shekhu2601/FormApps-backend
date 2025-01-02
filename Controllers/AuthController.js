@@ -44,8 +44,9 @@ const login = async (req, res) => {
             return res.status(403)
                 .json({ message: errorMsg, success: false });
         }
-        const jwtToken = jwt.sign(
-            { email: user.email, _id: user._id },
+        const payload ={id:user._id}
+        const jwtToken = jwt.sign(payload,
+            { email: user.email, id: user._id },
             "shekhu",
            
         )
@@ -56,7 +57,8 @@ const login = async (req, res) => {
                 success: true,
                 jwtToken,
                 email,
-                name: user.name
+                name: user.name,
+                id:user._id
             })
     } catch (err) {
         res.status(500)
