@@ -45,9 +45,9 @@ const login = async (req, res) => {
                 .json({ message: errorMsg, success: false });
         }
         const payload ={id:user._id}
-        const jwtToken = jwt.sign(payload,
+        const jwtToken = jwt.sign(
             { email: user.email, id: user._id },
-            "shekhu",
+            "shekhu"
            
         )
 
